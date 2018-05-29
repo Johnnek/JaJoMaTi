@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-//Test
+//AntMe Jan, John, Marius und Tim
 
 namespace AntMe.Player.JaJoMaTi
 {
