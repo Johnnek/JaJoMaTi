@@ -37,6 +37,46 @@ namespace AntMe.Player.JaJoMaTi
         ReichweiteModifikator = 0,          // Ausdauer einer Ameise
         SichtweiteModifikator = 0           // Sichtweite einer Ameise
     )]
+
+    //Unsere Verschiedenen Kasten; Angriff, Verteidigung & Ausgewogen
+
+    //Angriff muss noch angepasst werden
+    [Kaste(
+        Name = "Attack",
+        AngriffModifikator = 0,             // Angriffsstärke einer Ameise
+        DrehgeschwindigkeitModifikator = 0, // Drehgeschwindigkeit einer Ameise
+        EnergieModifikator = 0,             // Lebensenergie einer Ameise
+        GeschwindigkeitModifikator = 0,     // Laufgeschwindigkeit einer Ameise
+        LastModifikator = 0,                // Tragkraft einer Ameise
+        ReichweiteModifikator = 0,          // Ausdauer einer Ameise
+        SichtweiteModifikator = 0           // Sichtweite der Ameise
+        )]
+
+    //Verteidigung muss noch angepasst werden
+    [Kaste(
+        Name = "Defense",
+        AngriffModifikator = 0,             // Angriffsstärke einer Ameise
+        DrehgeschwindigkeitModifikator = 0, // Drehgeschwindigkeit einer Ameise
+        EnergieModifikator = 0,             // Lebensenergie einer Ameise
+        GeschwindigkeitModifikator = 0,     // Laufgeschwindigkeit einer Ameise
+        LastModifikator = 0,                // Tragkraft einer Ameise
+        ReichweiteModifikator = 0,          // Ausdauer einer Ameise
+        SichtweiteModifikator = 0           // Sichtweite der Ameise
+        )]
+
+    //Normal muss noch angepasst werden
+    [Kaste(
+        Name = "Normal",
+        AngriffModifikator = 0,             // Angriffsstärke einer Ameise
+        DrehgeschwindigkeitModifikator = 0, // Drehgeschwindigkeit einer Ameise
+        EnergieModifikator = 0,             // Lebensenergie einer Ameise
+        GeschwindigkeitModifikator = 0,     // Laufgeschwindigkeit einer Ameise
+        LastModifikator = 0,                // Tragkraft einer Ameise
+        ReichweiteModifikator = 0,          // Ausdauer einer Ameise
+        SichtweiteModifikator = 0           // Sichtweite der Ameise
+        )]
+
+
     public class JaJoMaTiKlasse : Basisameise
     {
         #region Kasten
