@@ -20,8 +20,8 @@ namespace AntMe.Player.JaJoMaTi
     /// </summary>
     [Spieler(
         Volkname = "JaJoMaTi",   // Hier kannst du den Namen des Volkes festlegen
-        Vorname = "",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
-        Nachname = ""       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Vorname = "JaJoMaTi",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Nachname = "JaJoMaTi"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
     )]
 
     /// Kasten stellen "Berufsgruppen" innerhalb deines Ameisenvolkes dar. Du kannst hier mit
@@ -106,6 +106,7 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         public override void Wartet()
         {
+            GeheGeradeaus();
         }
 
         /// <summary>
@@ -114,6 +115,7 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         public override void WirdMüde()
         {
+            GeheZuBau();
         }
 
         /// <summary>
@@ -149,6 +151,10 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das gesichtete Stück Obst</param>
         public override void Sieht(Obst obst)
         {
+            if (Ziel == null)
+            {
+                GeheZuZiel(obst);
+            }
         }
 
         /// <summary>
@@ -159,6 +165,8 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
+            if (Ziel == null)
+                GeheZuZiel(zucker);
         }
 
         /// <summary>
@@ -170,6 +178,9 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das erreichte Stück Obst</param>
         public override void ZielErreicht(Obst obst)
         {
+            SprüheMarkierung(obst.Id);
+            Nimm(obst);
+            GeheZuBau();
         }
 
         /// <summary>
@@ -181,6 +192,9 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der erreichte Zuckerhügel</param>
         public override void ZielErreicht(Zucker zucker)
         {
+            SprüheMarkierung(zucker.Id);
+            Nimm(zucker);
+            GeheZuBau();
         }
 
         #endregion
@@ -196,6 +210,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="markierung">Die gerochene Markierung</param>
         public override void RiechtFreund(Markierung markierung)
         {
+            GeheZuZiel(markierung);
         }
 
         /// <summary>
@@ -207,6 +222,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Erspähte befreundete Ameise</param>
         public override void SiehtFreund(Ameise ameise)
         {
+            SprüheMarkierung(this.AktuelleLast);
         }
 
         /// <summary>
@@ -233,6 +249,8 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Erspähte feindliche Ameise</param>
         public override void SiehtFeind(Ameise ameise)
         {
+            //GeheZuZiel(ameise);
+            //GreifeAn(ameise);
         }
 
         /// <summary>
@@ -243,6 +261,10 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="wanze">Erspähte Wanze</param>
         public override void SiehtFeind(Wanze wanze)
         {
+            if (GetragenesObst == null && Ziel == null)
+                GeheWegVon(wanze);
+            else
+                GeheZuBau();
         }
 
         /// <summary>
@@ -254,6 +276,10 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Angreifende Ameise</param>
         public override void WirdAngegriffen(Ameise ameise)
         {
+            if (GetragenesObst == null && Ziel == null)
+                GeheWegVon(ameise);
+            else
+                GeheZuBau();
         }
 
         /// <summary>
@@ -265,6 +291,10 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="wanze">Angreifende Wanze</param>
         public override void WirdAngegriffen(Wanze wanze)
         {
+            if (GetragenesObst == null && Ziel == null)
+                GeheWegVon(wanze);
+            else
+                GeheZuBau();
         }
 
         #endregion
