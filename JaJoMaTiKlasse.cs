@@ -151,6 +151,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das gesichtete Stück Obst</param>
         public override void Sieht(Obst obst)
         {
+            SprüheMarkierung(0);
             if (Ziel == null)
             {
                 GeheZuZiel(obst);
@@ -165,6 +166,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
+            SprüheMarkierung(0);
             if (Ziel == null)
                 GeheZuZiel(zucker);
         }
@@ -178,7 +180,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das erreichte Stück Obst</param>
         public override void ZielErreicht(Obst obst)
         {
-            SprüheMarkierung(obst.Id);
+            SprüheMarkierung(0);
             Nimm(obst);
             GeheZuBau();
         }
@@ -192,7 +194,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der erreichte Zuckerhügel</param>
         public override void ZielErreicht(Zucker zucker)
         {
-            SprüheMarkierung(zucker.Id);
+            SprüheMarkierung(0);
             Nimm(zucker);
             GeheZuBau();
         }
