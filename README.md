@@ -2,6 +2,7 @@
 ## JaJoMaTi
 ---
 ### To Do:
+* [x] Anfangen
 * [ ] verschiedene Ameisen Kasten
     * [ ] Zucker Sammler
     * [ ] Apfel Sammler
