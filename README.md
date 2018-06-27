@@ -1,7 +1,7 @@
-#Projekt ISY AntME 
-##JaJoMaTi
+# Projekt ISY AntME 
+## JaJoMaTi
 ---
-###To Do:
+### To Do:
 * [ ] verschiedene Ameisen Kasten
     * [ ] Zucker Sammler
     * [ ] Apfel Sammler
