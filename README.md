@@ -8,3 +8,5 @@
     * [ ] Apfel Sammler
     * [ ] Angreifer
 * [ ] Verteilung der jeweiligen Kasten überlegen
+---
+John du idiot
