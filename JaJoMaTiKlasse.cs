@@ -137,6 +137,13 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         public override void Tick()
         {
+            if(Ziel is Obst || Ziel is Zucker)
+            {
+                int entfernung, richtung;
+                entfernung = Koordinate.BestimmeEntfernung(this, this.Ziel);
+                richtung = Koordinate.BestimmeRichtung(this, this.Ziel);
+                SprüheMarkierung(richtung, entfernung);
+            }
         }
 
         #endregion
@@ -151,13 +158,19 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das gesichtete Stück Obst</param>
         public override void Sieht(Obst obst)
         {
-            if (Ziel == null && AktuelleLast == 0 && BrauchtNochTräger(obst))
+            int zentfernung, zrichtung;
+            zentfernung = Koordinate.BestimmeEntfernung(this, obst);
+            zrichtung = Koordinate.BestimmeRichtung(this, obst);
+
+            SprüheMarkierung(zrichtung, zentfernung);
+            int zielent, zielricht;
+            zielent = Koordinate.BestimmeEntfernung(this, Ziel);
+            zielricht = Koordinate.BestimmeRichtung(this, Ziel);
+
+            if (AktuelleLast == 0 && (zentfernung < zielent) && BrauchtNochTräger(obst))
             {
+                SprüheMarkierung(zielricht, zielent);
                 GeheZuZiel(obst);
-                int entfernung, richtung;
-                entfernung = Koordinate.BestimmeEntfernung(this, obst);
-                richtung = Koordinate.BestimmeRichtung(this, obst);
-                SprüheMarkierung(richtung, entfernung);
             }
         }
 
@@ -169,14 +182,19 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
+            int zentfernung, zrichtung;
+            zentfernung = Koordinate.BestimmeEntfernung(this, zucker);
+            zrichtung = Koordinate.BestimmeRichtung(this, zucker);
             
-            if (Ziel == null && AktuelleLast == 0)
+            SprüheMarkierung(zrichtung, zentfernung);
+            int zielent, zielricht;
+            zielent = Koordinate.BestimmeEntfernung(this, Ziel);
+            zielricht = Koordinate.BestimmeRichtung(this, Ziel);
+
+            if (AktuelleLast == 0 && (zentfernung < zielent))
             {
+                SprüheMarkierung(zielricht, zielent);                 
                 GeheZuZiel(zucker);
-                int entfernung, richtung;
-                entfernung = Koordinate.BestimmeEntfernung(this, zucker);
-                richtung = Koordinate.BestimmeRichtung(this, zucker);
-                SprüheMarkierung(richtung, entfernung);
             }                
         }
 
@@ -191,7 +209,6 @@ namespace AntMe.Player.JaJoMaTi
         {
             if(BrauchtNochTräger(obst))
             {
-                SprüheMarkierung(0);
                 Nimm(obst);
                 GeheZuBau();
             }
@@ -207,7 +224,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der erreichte Zuckerhügel</param>
         public override void ZielErreicht(Zucker zucker)
         {
-            SprüheMarkierung(0);
+            SprüheMarkierung(50);
             Nimm(zucker);
             GeheZuBau();
         }
@@ -225,7 +242,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="markierung">Die gerochene Markierung</param>
         public override void RiechtFreund(Markierung markierung)
         {
-            if(AktuelleLast == 0 && Ziel == null)
+            if(AktuelleLast == 0 || Ziel == null)
             {
                 GeheZuZiel(markierung);
             }
@@ -272,7 +289,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Erspähte feindliche Ameise</param>
         public override void SiehtFeind(Ameise ameise)
         {
-            if(AnzahlAmeisenDesTeamsInSichtweite > 1)
+            if(AnzahlAmeisenInSichtweite > 1)
             {
                 int entfernung, richtung;
                 entfernung = Koordinate.BestimmeEntfernung(this, ameise);
@@ -300,7 +317,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="wanze">Erspähte Wanze</param>
         public override void SiehtFeind(Wanze wanze)
         {
-            if (AnzahlAmeisenDesTeamsInSichtweite > 4 && AktuelleLast < this.MaximaleLast)
+            if (AnzahlAmeisenInSichtweite > 4 && AktuelleLast < this.MaximaleLast)
             {
                 int entfernung, richtung;
                 entfernung = Koordinate.BestimmeEntfernung(this, wanze);
@@ -332,7 +349,7 @@ namespace AntMe.Player.JaJoMaTi
         {
             if (GetragenesObst == null && Ziel == null)
             {
-                if (AnzahlAmeisenDesTeamsInSichtweite > AnzahlFremderAmeisenInSichtweite)
+                if (AnzahlAmeisenInSichtweite > AnzahlFremderAmeisenInSichtweite)
                     GreifeAn(ameise);
                 else
                     GeheWegVon(ameise);
