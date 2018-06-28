@@ -144,6 +144,14 @@ namespace AntMe.Player.JaJoMaTi
                 richtung = Koordinate.BestimmeRichtung(this, this.Ziel);
                 SprüheMarkierung(richtung, entfernung);
             }
+            if (Reichweite - ZurückgelegteStrecke - 100 < EntfernungZuBau)
+            {
+                GeheZuBau();
+            }
+            if (AktuelleEnergie < MaximaleEnergie * 2 / 3)
+            {
+                GeheZuBau();
+            }
         }
 
         #endregion
@@ -174,6 +182,8 @@ namespace AntMe.Player.JaJoMaTi
             }
         }
 
+        private Zucker gemerkterZucker;
+
         /// <summary>
         /// Sobald eine Ameise innerhalb ihres Sichtradius einen Zuckerhügel erspäht wird 
         /// diese Methode aufgerufen. Als Parameter kommt der betroffene Zuckerghügel.
@@ -182,20 +192,26 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
-            int zentfernung, zrichtung;
-            zentfernung = Koordinate.BestimmeEntfernung(this, zucker);
-            zrichtung = Koordinate.BestimmeRichtung(this, zucker);
-            
-            SprüheMarkierung(zrichtung, zentfernung);
-            int zielent, zielricht;
-            zielent = Koordinate.BestimmeEntfernung(this, Ziel);
-            zielricht = Koordinate.BestimmeRichtung(this, Ziel);
+            if (gemerkterZucker == null)
+                gemerkterZucker = zucker;
 
-            if (AktuelleLast == 0 && (zentfernung < zielent))
-            {
-                SprüheMarkierung(zielricht, zielent);                 
-                GeheZuZiel(zucker);
-            }                
+            SprüheMarkierung(0, 60);
+
+
+            //int zentfernung, zrichtung;
+            //zentfernung = Koordinate.BestimmeEntfernung(this, zucker);
+            //zrichtung = Koordinate.BestimmeRichtung(this, zucker);
+            
+            //SprüheMarkierung(zrichtung, zentfernung);
+            //int zielent, zielricht;
+            //zielent = Koordinate.BestimmeEntfernung(this, Ziel);
+            //zielricht = Koordinate.BestimmeRichtung(this, Ziel);
+
+            //if (AktuelleLast == 0 && (zentfernung < zielent))
+            //{
+            //    SprüheMarkierung(zielricht, zielent);                 
+            //    GeheZuZiel(zucker);
+            //}                
         }
 
         /// <summary>
@@ -207,12 +223,28 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das erreichte Stück Obst</param>
         public override void ZielErreicht(Obst obst)
         {
-            if(BrauchtNochTräger(obst))
+            if (BrauchtNochTräger(obst))
             {
-                Nimm(obst);
-                GeheZuBau();
+                SprüheMarkierung
+                    (Koordinate.BestimmeRichtung(this, obst), 
+                    Koordinate.BestimmeEntfernung(this, obst));
+
+
+                if (Kaste.Substring(0, 7) == "Attack" && Ziel == null)
+                    GeheZuZiel(obst);
             }
-            
+
+
+            //if (BrauchtNochTräger(obst))
+            //{
+            //    SprüheMarkierung(Koordinate.BestimmeRichtung(this, obst),Koordinate.BestimmeEntfernung(this, obst));
+            //    Nimm(obst);
+            //    GeheZuBau();
+
+
+            //    if (Kaste.Substring(0, 7) == "Attack" && Ziel == null)
+            //        GeheZuZiel(obst);
+            //}            
         }
 
         /// <summary>
@@ -224,7 +256,6 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der erreichte Zuckerhügel</param>
         public override void ZielErreicht(Zucker zucker)
         {
-            SprüheMarkierung(50);
             Nimm(zucker);
             GeheZuBau();
         }
@@ -242,7 +273,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="markierung">Die gerochene Markierung</param>
         public override void RiechtFreund(Markierung markierung)
         {
-            if(AktuelleLast == 0 || Ziel == null)
+            if(Ziel == null)
             {
                 GeheZuZiel(markierung);
             }
@@ -373,7 +404,7 @@ namespace AntMe.Player.JaJoMaTi
         public override void WirdAngegriffen(Wanze wanze)
         {
             if (GetragenesObst == null && Ziel == null)
-                GeheWegVon(wanze);
+                GreifeAn(wanze);
             else
                 GeheZuBau();
         }
