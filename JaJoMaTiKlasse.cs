@@ -40,39 +40,27 @@ namespace AntMe.Player.JaJoMaTi
 
     //Unsere Verschiedenen Kasten; Angriff, Verteidigung & Ausgewogen
 
-    //Angriff muss noch angepasst werden
+    //Angreifer, bereits angepasst
     [Kaste(
-        Name = "Attack",
+        Name = "Attacker",
         AngriffModifikator = 2,             // Angriffsstärke einer Ameise
         DrehgeschwindigkeitModifikator = -1, // Drehgeschwindigkeit einer Ameise
-        EnergieModifikator = 1,             // Lebensenergie einer Ameise
-        GeschwindigkeitModifikator = 0,     // Laufgeschwindigkeit einer Ameise
-        LastModifikator = 0,                // Tragkraft einer Ameise
+        EnergieModifikator = 2,             // Lebensenergie einer Ameise
+        GeschwindigkeitModifikator = -1,     // Laufgeschwindigkeit einer Ameise
+        LastModifikator = -1,                // Tragkraft einer Ameise
         ReichweiteModifikator = -1,          // Ausdauer einer Ameise
-        SichtweiteModifikator = -1           // Sichtweite der Ameise
-        )]
-
-    //Verteidigung muss noch angepasst werden
-    [Kaste(
-        Name = "Defense",
-        AngriffModifikator = 0,             // Angriffsstärke einer Ameise
-        DrehgeschwindigkeitModifikator = 0, // Drehgeschwindigkeit einer Ameise
-        EnergieModifikator = 0,             // Lebensenergie einer Ameise
-        GeschwindigkeitModifikator = 0,     // Laufgeschwindigkeit einer Ameise
-        LastModifikator = 0,                // Tragkraft einer Ameise
-        ReichweiteModifikator = 0,          // Ausdauer einer Ameise
         SichtweiteModifikator = 0           // Sichtweite der Ameise
         )]
 
-    //Normal muss noch angepasst werden
+    //Apfelsammler, bereits angepasst
     [Kaste(
-        Name = "Normal",
-        AngriffModifikator = 0,             // Angriffsstärke einer Ameise
-        DrehgeschwindigkeitModifikator = 0, // Drehgeschwindigkeit einer Ameise
-        EnergieModifikator = 0,             // Lebensenergie einer Ameise
-        GeschwindigkeitModifikator = 0,     // Laufgeschwindigkeit einer Ameise
-        LastModifikator = 0,                // Tragkraft einer Ameise
-        ReichweiteModifikator = 0,          // Ausdauer einer Ameise
+        Name = "Appler",
+        AngriffModifikator = -1,             // Angriffsstärke einer Ameise
+        DrehgeschwindigkeitModifikator = -1, // Drehgeschwindigkeit einer Ameise
+        EnergieModifikator = -1,             // Lebensenergie einer Ameise
+        GeschwindigkeitModifikator = 2,     // Laufgeschwindigkeit einer Ameise
+        LastModifikator = 2,                // Tragkraft einer Ameise
+        ReichweiteModifikator = -1,          // Ausdauer einer Ameise
         SichtweiteModifikator = 0           // Sichtweite der Ameise
         )]
 
