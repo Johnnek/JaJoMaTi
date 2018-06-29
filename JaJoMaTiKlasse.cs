@@ -80,26 +80,33 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         public override void Wartet()
         {
-            // Sollte die Ameise außerhalb des Nahrungsmittelradiuses liegen...
-            if (EntfernungZuBau > 400)
+            if (Kaste == "Attacker")
             {
-                // ... soll sie wieder heim gehen.
-                GeheZuBau();
-            }
-            else
+                // get rekt
+            }                
+            if (Kaste == "Appler")
             {
-                // ... ansonsten soll sie sich ein bischen drehen (zufälliger Winkel
-                // zwischen -10 und 10 Grad) und wieder ein paar Schritte laufen.
-                DreheUmWinkel(Zufall.Zahl(-10, 10));
-                GeheGeradeaus(20);
-            }
+                // Sollte die Ameise außerhalb des Nahrungsmittelradiuses liegen...
+                if (EntfernungZuBau > 400)
+                {
+                    // ... soll sie wieder heim gehen.
+                    GeheZuBau();
+                }
+                else
+                {
+                    // ... ansonsten soll sie sich ein bischen drehen (zufälliger Winkel
+                    // zwischen -10 und 10 Grad) und wieder ein paar Schritte laufen.
+                    DreheUmWinkel(Zufall.Zahl(-10, 10));
+                    GeheGeradeaus(20);
+                }
 
-            // Wenn die restliche verfügbare Strecke der Ameise (minus einem Puffer
-            // von 50 Schritten) kleiner als die Entfernung zum Bau ist...
-            if (Reichweite - ZurückgelegteStrecke - 50 < EntfernungZuBau)
-            {
-                // ... soll sie nach Hause gehen um nicht zu sterben.
-                GeheZuBau();
+                // Wenn die restliche verfügbare Strecke der Ameise (minus einem Puffer
+                // von 50 Schritten) kleiner als die Entfernung zum Bau ist...
+                if (Reichweite - ZurückgelegteStrecke - 50 < EntfernungZuBau)
+                {
+                    // ... soll sie nach Hause gehen um nicht zu sterben.
+                    GeheZuBau();
+                }
             }
         }
 
@@ -121,6 +128,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="todesart">Art des Todes</param>
         public override void IstGestorben(Todesart todesart)
         {
+            // Wir sterben nicht
         }
 
         /// <summary>
@@ -131,31 +139,38 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         public override void Tick()
         {
-            // Sollte die Ameise gerade mit Nahrung unterwegs sein...
-            if (Ziel != null && GetragenesObst != null)
+            if (Kaste == "Attacker")
             {
-                // ... und noch Helfer für den Apfel gebraucht werden...
-                if (BrauchtNochTräger(GetragenesObst))
+                // get rekt
+            }
+            if (Kaste == "Appler")
+            {
+                // Sollte die Ameise gerade mit Nahrung unterwegs sein...
+                if (Ziel != null && GetragenesObst != null)
                 {
-                    // ... soll sie eine Markierung sprühen die die Information enthält,
-                    // wie viele Ameisen noch beim Tragen helfen sollen.
-                    SprüheMarkierung(20 - AnzahlAmeisenInSichtweite, 200);
+                    // ... und noch Helfer für den Apfel gebraucht werden...
+                    if (BrauchtNochTräger(GetragenesObst))
+                    {
+                        // ... soll sie eine Markierung sprühen die die Information enthält,
+                        // wie viele Ameisen noch beim Tragen helfen sollen.
+                        SprüheMarkierung(20 - AnzahlAmeisenInSichtweite, 200);
+                    }
                 }
-            }
 
-            // Sollte die Ameise, wärend sie Obst trägt, das Ziel "Bau" verlieren,
-            // wird das Ziel neu gesetzt.
-            if (GetragenesObst != null)
-            {
-                GeheZuBau();
-            }
+                // Sollte die Ameise, wärend sie Obst trägt, das Ziel "Bau" verlieren,
+                // wird das Ziel neu gesetzt.
+                if (GetragenesObst != null)
+                {
+                    GeheZuBau();
+                }
 
-            // Sollte die Ameise einem Stück Obst hinterher laufen das garkeine Träger
-            // mehr braucht soll sie stehen bleiben um anschließend durch "wartet"
-            // wieder umher geschickt zu werden.
-            if (Ziel is Obst && !BrauchtNochTräger((Obst)Ziel))
-            {
-                BleibStehen();
+                // Sollte die Ameise einem Stück Obst hinterher laufen das garkeine Träger
+                // mehr braucht soll sie stehen bleiben um anschließend durch "wartet"
+                // wieder umher geschickt zu werden.
+                if (Ziel is Obst && !BrauchtNochTräger((Obst)Ziel))
+                {
+                    BleibStehen();
+                }
             }
         }
 
@@ -171,10 +186,17 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das gesichtete Stück Obst</param>
         public override void Sieht(Obst obst)
         {
-            // Sofern der Apfel noch Träger braucht soll die Ameise zum Apfel.
-            if (BrauchtNochTräger(obst))
+            if (Kaste == "Attacker")
             {
-                GeheZuZiel(obst);
+                // get rekt
+            }
+            if (Kaste == "Appler")
+            {
+                // Sofern der Apfel noch Träger braucht soll die Ameise zum Apfel.
+                if (BrauchtNochTräger(obst))
+                {
+                    GeheZuZiel(obst);
+                }
             }
         }
 
@@ -198,18 +220,25 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das erreichte Stück Obst</param>
         public override void ZielErreicht(Obst obst)
         {
-            // Die Ameise soll nochmal prüfen ob der Apfel überhaupt noch Träger
-            // braucht.
-            if (BrauchtNochTräger(obst))
+            if (Kaste == "Attacker")
             {
-                // Wenn noch Träger gebraucht werden soll die Ameise eine Markierung
-                // sprühen die als Information die Menge benötigter Ameisen hat. Da die
-                // benötigte Menge nicht genau ermittelt werden kann wird hier nur
-                // geschätzt. Es wird erwartet, dass 20 gebraucht werden und dass in
-                // "AnzahlInSichtweite" etwa die Zahl tragenden Ameisen steckt.
-                SprüheMarkierung(20 - AnzahlAmeisenInSichtweite, 200);
-                Nimm(obst);
-                GeheZuBau();
+                // get rekt
+            }
+            if (Kaste == "Appler")
+            {
+                // Die Ameise soll nochmal prüfen ob der Apfel überhaupt noch Träger
+                // braucht.
+                if (BrauchtNochTräger(obst))
+                {
+                    // Wenn noch Träger gebraucht werden soll die Ameise eine Markierung
+                    // sprühen die als Information die Menge benötigter Ameisen hat. Da die
+                    // benötigte Menge nicht genau ermittelt werden kann wird hier nur
+                    // geschätzt. Es wird erwartet, dass 20 gebraucht werden und dass in
+                    // "AnzahlInSichtweite" etwa die Zahl tragenden Ameisen steckt.
+                    SprüheMarkierung(20 - AnzahlAmeisenInSichtweite, 200);
+                    Nimm(obst);
+                    GeheZuBau();
+                }
             }
         }
 
@@ -239,30 +268,37 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="markierung">Die gerochene Markierung</param>
         public override void RiechtFreund(Markierung markierung)
         {
-            // Sollte die Ameise nicht schon Obst im Auge haben oder auf dem Weg zum
-            // Bau sein soll sie, wenn die angeforderte Menge Ameisen die Ameisenmenge
-            // der gerade in Sichtweite befindlichen Ameisen übersteigt, zum
-            // Markierungsmittelpunkt gehen um dort hoffentlich den Apfel zu sehen.
-            if (!(Ziel is Obst) &&
+            if (Kaste == "Attacker")
+            {
+                // get rekt
+            }
+            if (Kaste == "Appler")
+            {
+                // Sollte die Ameise nicht schon Obst im Auge haben oder auf dem Weg zum
+                // Bau sein soll sie, wenn die angeforderte Menge Ameisen die Ameisenmenge
+                // der gerade in Sichtweite befindlichen Ameisen übersteigt, zum
+                // Markierungsmittelpunkt gehen um dort hoffentlich den Apfel zu sehen.
+                if (!(Ziel is Obst) &&
                 !(Ziel is Bau) &&
                 AnzahlAmeisenInSichtweite < markierung.Information)
-            {
-                GeheZuZiel(markierung);
-                // Sollte die Entfernung mehr als 50 schritte zum Mittelpunkt betragen,
-                // soll eine Folgemarkierung gesprüht werden um denn Effektradius zu 
-                // erhöhen.
-                if (Koordinate.BestimmeEntfernung(this, markierung) > 50)
                 {
-                    SprüheMarkierung(
-                        Koordinate.BestimmeRichtung(this, markierung),
-                        Koordinate.BestimmeEntfernung(this, markierung));
+                    GeheZuZiel(markierung);
+                    // Sollte die Entfernung mehr als 50 schritte zum Mittelpunkt betragen,
+                    // soll eine Folgemarkierung gesprüht werden um denn Effektradius zu 
+                    // erhöhen.
+                    if (Koordinate.BestimmeEntfernung(this, markierung) > 50)
+                    {
+                        SprüheMarkierung(
+                            Koordinate.BestimmeRichtung(this, markierung),
+                            Koordinate.BestimmeEntfernung(this, markierung));
+                    }
                 }
-            }
-            else
-            {
-                // In allen anderen Fällen soll sie kurz stehen bleiben um zu
-                // verhindern, dass die Ameise dem Apfel ewig hinterher läuft.
-                BleibStehen();
+                else
+                {
+                    // In allen anderen Fällen soll sie kurz stehen bleiben um zu
+                    // verhindern, dass die Ameise dem Apfel ewig hinterher läuft.
+                    BleibStehen();
+                }
             }
         }
 
@@ -287,6 +323,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Erspähte verbündete Ameise</param>
         public override void SiehtVerbündeten(Ameise ameise)
         {
+
         }
 
         #endregion
@@ -313,25 +350,32 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="wanze">Erspähte Wanze</param>
         public override void SiehtFeind(Wanze wanze)
         {
-            // Bei Käfersicht wird ermittelt ob die Ameise evtl. kollidiert, wenn sie
-            // geradeaus weitergeht.
-            int relativeRichtung =
-                Koordinate.BestimmeRichtung(this, wanze) - Richtung;
-            if (relativeRichtung > -15 && relativeRichtung < 15)
+            if (Kaste == "Attacker")
             {
-                // Wenn ja, soll sie erstmal die Nahrung fallen lassen um schneller zu
-                // laufen und dann, je nachdem auf welcher Seite der Käfer ist, in einem
-                // 20 Grad-Winkel in die andere Richtung weggehen.
-                LasseNahrungFallen();
-                if (relativeRichtung < 0)
+                // get rekt
+            }
+            if (Kaste == "Appler")
+            {
+                // Bei Käfersicht wird ermittelt ob die Ameise evtl. kollidiert, wenn sie
+                // geradeaus weitergeht.
+                int relativeRichtung =
+                Koordinate.BestimmeRichtung(this, wanze) - Richtung;
+                if (relativeRichtung > -15 && relativeRichtung < 15)
                 {
-                    DreheUmWinkel(20 + relativeRichtung);
+                    // Wenn ja, soll sie erstmal die Nahrung fallen lassen um schneller zu
+                    // laufen und dann, je nachdem auf welcher Seite der Käfer ist, in einem
+                    // 20 Grad-Winkel in die andere Richtung weggehen.
+                    LasseNahrungFallen();
+                    if (relativeRichtung < 0)
+                    {
+                        DreheUmWinkel(20 + relativeRichtung);
+                    }
+                    else
+                    {
+                        DreheUmWinkel(-20 - relativeRichtung);
+                    }
+                    GeheGeradeaus(100);
                 }
-                else
-                {
-                    DreheUmWinkel(-20 - relativeRichtung);
-                }
-                GeheGeradeaus(100);
             }
         }
 
