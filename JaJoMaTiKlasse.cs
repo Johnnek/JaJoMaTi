@@ -154,23 +154,12 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das gesichtete Stück Obst</param>
         public override void Sieht(Obst obst)
         {
-            int zentfernung, zrichtung;
-            zentfernung = Koordinate.BestimmeEntfernung(this, obst);
-            zrichtung = Koordinate.BestimmeRichtung(this, obst);
-
-            SprüheMarkierung(zrichtung, zentfernung);
-            int zielent, zielricht;
-            zielent = Koordinate.BestimmeEntfernung(this, Ziel);
-            zielricht = Koordinate.BestimmeRichtung(this, Ziel);
-
-            if (AktuelleLast == 0 && (zentfernung < zielent) && BrauchtNochTräger(obst))
+            // Sofern der Apfel noch Träger braucht soll die Ameise zum Apfel.
+            if (BrauchtNochTräger(obst))
             {
-                SprüheMarkierung(zielricht, zielent);
                 GeheZuZiel(obst);
             }
         }
-
-        private Zucker gemerkterZucker;
 
         /// <summary>
         /// Sobald eine Ameise innerhalb ihres Sichtradius einen Zuckerhügel erspäht wird 
@@ -180,12 +169,6 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
-            if (gemerkterZucker == null)
-                gemerkterZucker = zucker;
-
-            SprüheMarkierung(0, 60);
-
-
             //int zentfernung, zrichtung;
             //zentfernung = Koordinate.BestimmeEntfernung(this, zucker);
             //zrichtung = Koordinate.BestimmeRichtung(this, zucker);
@@ -211,28 +194,19 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="obst">Das erreichte Stück Obst</param>
         public override void ZielErreicht(Obst obst)
         {
+            // Die Ameise soll nochmal prüfen ob der Apfel überhaupt noch Träger
+            // braucht.
             if (BrauchtNochTräger(obst))
             {
-                SprüheMarkierung
-                    (Koordinate.BestimmeRichtung(this, obst), 
-                    Koordinate.BestimmeEntfernung(this, obst));
-
-
-                if (Kaste.Substring(0, 7) == "Attack" && Ziel == null)
-                    GeheZuZiel(obst);
+                // Wenn noch Träger gebraucht werden soll die Ameise eine Markierung
+                // sprühen die als Information die Menge benötigter Ameisen hat. Da die
+                // benötigte Menge nicht genau ermittelt werden kann wird hier nur
+                // geschätzt. Es wird erwartet, dass 20 gebraucht werden und dass in
+                // "AnzahlInSichtweite" etwa die Zahl tragenden Ameisen steckt.
+                SprüheMarkierung(20 - AnzahlAmeisenInSichtweite, 200);
+                Nimm(obst);
+                GeheZuBau();
             }
-
-
-            //if (BrauchtNochTräger(obst))
-            //{
-            //    SprüheMarkierung(Koordinate.BestimmeRichtung(this, obst),Koordinate.BestimmeEntfernung(this, obst));
-            //    Nimm(obst);
-            //    GeheZuBau();
-
-
-            //    if (Kaste.Substring(0, 7) == "Attack" && Ziel == null)
-            //        GeheZuZiel(obst);
-            //}            
         }
 
         /// <summary>
@@ -243,10 +217,8 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         /// <param name="zucker">Der erreichte Zuckerhügel</param>
         public override void ZielErreicht(Zucker zucker)
-        {
-            Nimm(zucker);
-            GeheZuBau();
-        }
+        { }
+        
 
         #endregion
 
