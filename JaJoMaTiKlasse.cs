@@ -80,7 +80,7 @@ namespace AntMe.Player.JaJoMaTi
         public override string BestimmeKaste(Dictionary<string, int> anzahl)
         {
             // Gibt den Namen der betroffenen Kaste zurück.
-            return "Attack";
+            return "Appler";
         }
 
         #endregion
