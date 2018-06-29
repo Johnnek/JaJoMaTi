@@ -8,4 +8,5 @@
     * [x] Apfel Sammler
     * [x] Angreifer
 * [ ] Verteilung der jeweiligen Kasten überlegen
+* [ ] Wenn die zu weit gehen, zurück zum Bau, da die sonst sterben
 ---
