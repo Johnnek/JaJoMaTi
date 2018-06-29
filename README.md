@@ -3,9 +3,9 @@
 ---
 ### To Do:
 * [x] Anfangen
-* [ ] verschiedene Ameisen Kasten
-    * [ ] Zucker Sammler
-    * [ ] Apfel Sammler
-    * [ ] Angreifer
+* [x] verschiedene Ameisen Kasten
+    * [ ] ~~Zucker Sammler~~
+    * [x] Apfel Sammler
+    * [x] Angreifer
 * [ ] Verteilung der jeweiligen Kasten überlegen
 ---
