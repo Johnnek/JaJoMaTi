@@ -55,7 +55,7 @@ namespace AntMe.Player.JaJoMaTi
     {
         #region Kasten
 
-        private static bool erzeugeAppler = false; 50/50
+        private static bool erzeugeAppler = false; //50/50
         //private static int zähler = 0;
 
         /// <summary>
