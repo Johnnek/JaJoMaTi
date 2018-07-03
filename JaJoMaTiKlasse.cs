@@ -55,7 +55,8 @@ namespace AntMe.Player.JaJoMaTi
     {
         #region Kasten
 
-        private static bool erzeugeAppler = false;
+        //private static bool erzeugeAppler = false; 50/50
+        private static int zähler = 0;
 
         /// <summary>
         /// Jedes mal, wenn eine neue Ameise geboren wird, muss ihre Berufsgruppe
@@ -67,6 +68,11 @@ namespace AntMe.Player.JaJoMaTi
         /// <returns>Name der Kaste zu der die geborene Ameise gehören soll</returns>
         public override string BestimmeKaste(Dictionary<string, int> anzahl)
         {
+            if (zähler % 3 == 0)
+                return "Appler";
+            else
+                return "Attacker";
+            /*Angriff 50, Sammler 50
             erzeugeAppler = !erzeugeAppler;
             if (erzeugeAppler)
                 return "Appler";
@@ -74,6 +80,7 @@ namespace AntMe.Player.JaJoMaTi
             {
                 return "Attacker";
             }
+            */
         }
 
         #endregion
