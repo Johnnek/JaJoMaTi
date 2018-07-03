@@ -69,9 +69,15 @@ namespace AntMe.Player.JaJoMaTi
         public override string BestimmeKaste(Dictionary<string, int> anzahl)
         {
             if (zähler % 3 == 0)
+            {
+                zähler++;
                 return "Appler";
+            }
             else
+            {
+                zähler++;
                 return "Attacker";
+            }
             /*Angriff 50, Sammler 50
             erzeugeAppler = !erzeugeAppler;
             if (erzeugeAppler)
