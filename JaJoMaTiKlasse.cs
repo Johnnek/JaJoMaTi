@@ -19,9 +19,9 @@ namespace AntMe.Player.JaJoMaTi
     /// (http://wiki.antme.net/de/Lektionen)
     /// </summary>
     [Spieler(
-        Volkname = "JaJoMaTi",   // Hier kannst du den Namen des Volkes festlegen
-        Vorname = "30ap",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
-        Nachname = "70at"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Volkname = "JaJoMaTi 50 50",   // Hier kannst du den Namen des Volkes festlegen
+        Vorname = "50ap",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Nachname = "50at"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
     )]
 
     //Unsere Verschiedenen Kasten; Angreifer & Appler
@@ -55,8 +55,8 @@ namespace AntMe.Player.JaJoMaTi
     {
         #region Kasten
 
-        //private static bool erzeugeAppler = false; 50/50
-        private static int zähler = 0;
+        private static bool erzeugeAppler = false; 50/50
+        //private static int zähler = 0;
 
         /// <summary>
         /// Jedes mal, wenn eine neue Ameise geboren wird, muss ihre Berufsgruppe
@@ -68,6 +68,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <returns>Name der Kaste zu der die geborene Ameise gehören soll</returns>
         public override string BestimmeKaste(Dictionary<string, int> anzahl)
         {
+            /*
             if (zähler % 3 == 0)
             {
                 zähler++;
@@ -78,7 +79,9 @@ namespace AntMe.Player.JaJoMaTi
                 zähler++;
                 return "Attacker";
             }
-            /*Angriff 50, Sammler 50
+            */
+            
+            //Angriff 50, Sammler 50
             erzeugeAppler = !erzeugeAppler;
             if (erzeugeAppler)
                 return "Appler";
@@ -86,7 +89,6 @@ namespace AntMe.Player.JaJoMaTi
             {
                 return "Attacker";
             }
-            */
         }
 
         #endregion
