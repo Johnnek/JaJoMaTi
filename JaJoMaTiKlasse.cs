@@ -71,12 +71,12 @@ namespace AntMe.Player.JaJoMaTi
             if (zähler % 3 == 0)
             {
                 zähler++;
-                return "Appler";
+                return "Attacker";
             }
             else
             {
                 zähler++;
-                return "Attacker";
+                return "Appler";
             }
             /*Angriff 50, Sammler 50
             erzeugeAppler = !erzeugeAppler;
