@@ -20,8 +20,8 @@ namespace AntMe.Player.JaJoMaTi
     /// </summary>
     [Spieler(
         Volkname = "JaJoMaTi",   // Hier kannst du den Namen des Volkes festlegen
-        Vorname = "JaJoMaTi",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
-        Nachname = "JaJoMaTi"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Vorname = "30ap",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Nachname = "70at"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
     )]
 
     //Unsere Verschiedenen Kasten; Angreifer & Appler
@@ -71,12 +71,12 @@ namespace AntMe.Player.JaJoMaTi
             if (zähler % 3 == 0)
             {
                 zähler++;
-                return "Attacker";
+                return "Appler";
             }
             else
             {
                 zähler++;
-                return "Appler";
+                return "Attacker";
             }
             /*Angriff 50, Sammler 50
             erzeugeAppler = !erzeugeAppler;
