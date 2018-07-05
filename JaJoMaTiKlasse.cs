@@ -19,7 +19,7 @@ namespace AntMe.Player.JaJoMaTi
     /// (http://wiki.antme.net/de/Lektionen)
     /// </summary>
     [Spieler(
-        Volkname = "JaJoMaTi 50 50",   // Hier kannst du den Namen des Volkes festlegen
+        Volkname = "JaJoMaTi Final",   // Hier kannst du den Namen des Volkes festlegen
         Vorname = "50ap",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
         Nachname = "50at"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
     )]
@@ -62,7 +62,6 @@ namespace AntMe.Player.JaJoMaTi
         /// Jedes mal, wenn eine neue Ameise geboren wird, muss ihre Berufsgruppe
         /// bestimmt werden. Das kannst du mit Hilfe dieses Rückgabewertes dieser 
         /// Methode steuern.
-        /// Weitere Infos unter http://wiki.antme.net/de/API1:BestimmeKaste
         /// </summary>
         /// <param name="anzahl">Anzahl Ameisen pro Kaste</param>
         /// <returns>Name der Kaste zu der die geborene Ameise gehören soll</returns>
@@ -80,14 +79,16 @@ namespace AntMe.Player.JaJoMaTi
                 return "Attacker";
             }
             */
-            
-            //Angriff 50, Sammler 50
-            erzeugeAppler = !erzeugeAppler;
-            if (erzeugeAppler)
-                return "Appler";
+
+            //  Wir erzeugen an dieser Stelle Apfel sammelnde Ameisen sowie Angreiffer Ameisen im Verhältnis 50/50
+            //  Bei jedem Erstellvorgang wird die flag erzeugeAppler auf 0 und 1 im Wechsel gesetzt
+            erzeugeAppler = !erzeugeAppler; 
+            // Wenn erzeugeAppler auf true ist, wird eine Apfel sammelnde Ameise generiert
+            if (erzeugeAppler) 
+                return "Appler"; // Hier generieren wir eine Sammler Ameise
             else
             {
-                return "Attacker";
+                return "Attacker"; // Hier generieren wir eine Angreiffer Ameise wenn erzeugeAppler auf false gesetzt ist.
             }
         }
 
@@ -98,7 +99,6 @@ namespace AntMe.Player.JaJoMaTi
         /// <summary>
         /// Wenn die Ameise keinerlei Aufträge hat, wartet sie auf neue Aufgaben. Um dir das 
         /// mitzuteilen, wird diese Methode hier aufgerufen.
-        /// Weitere Infos unter http://wiki.antme.net/de/API1:Wartet
         /// </summary>
         public override void Wartet()
         {
@@ -137,7 +137,6 @@ namespace AntMe.Player.JaJoMaTi
 
         /// <summary>
         /// Erreicht eine Ameise ein drittel ihrer Laufreichweite, wird diese Methode aufgerufen.
-        /// Weitere Infos unter http://wiki.antme.net/de/API1:WirdM%C3%BCde
         /// </summary>
         public override void WirdMüde()
         {
@@ -148,19 +147,17 @@ namespace AntMe.Player.JaJoMaTi
         /// Wenn eine Ameise stirbt, wird diese Methode aufgerufen. Man erfährt dadurch, wie 
         /// die Ameise gestorben ist. Die Ameise kann zu diesem Zeitpunkt aber keinerlei Aktion 
         /// mehr ausführen.
-        /// Weitere Infos unter http://wiki.antme.net/de/API1:IstGestorben
         /// </summary>
         /// <param name="todesart">Art des Todes</param>
         public override void IstGestorben(Todesart todesart)
         {
-            // Wir sterben nicht
+            // Man sagt die Guten sterben jung, doch die Besten sterben nie.. deshalb haben wir diese Methode nicht ausprogrammiert        
         }
 
         /// <summary>
         /// Diese Methode wird in jeder Simulationsrunde aufgerufen - ungeachtet von zusätzlichen 
         /// Bedingungen. Dies eignet sich für Aktionen, die unter Bedingungen ausgeführt werden 
         /// sollen, die von den anderen Methoden nicht behandelt werden.
-        /// Weitere Infos unter http://wiki.antme.net/de/API1:Tick
         /// </summary>
         public override void Tick()
         {
@@ -220,14 +217,13 @@ namespace AntMe.Player.JaJoMaTi
         /// <summary>
         /// Sobald eine Ameise innerhalb ihres Sichtradius einen Apfel erspäht wird 
         /// diese Methode aufgerufen. Als Parameter kommt das betroffene Stück Obst.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:Sieht(Obst)"
         /// </summary>
         /// <param name="obst">Das gesichtete Stück Obst</param>
         public override void Sieht(Obst obst)
         {
             if (Kaste == "Attacker")
             {
-                // get rekt
+                // Hier wird nichts gemacht, da unsere Angreiffer Ameisen Nahrung komplett ignorieren.
             }
             if (Kaste == "Appler")
             {
@@ -242,19 +238,18 @@ namespace AntMe.Player.JaJoMaTi
         /// <summary>
         /// Sobald eine Ameise innerhalb ihres Sichtradius einen Zuckerhügel erspäht wird 
         /// diese Methode aufgerufen. Als Parameter kommt der betroffene Zuckerghügel.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:Sieht(Zucker)"
         /// </summary>
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
-            // Zuckerameisen sind Lappen!!               
+            // Den Fall für Zucker haben wir nicht weiter ausprogrammiert, da wir uns dazu entschieden haben
+            // nur Äpfel zu sammeln bzw. anzugreiffen              
         }
 
         /// <summary>
         /// Hat die Ameise ein Stück Obst als Ziel festgelegt, wird diese Methode aufgerufen, 
         /// sobald die Ameise ihr Ziel erreicht hat. Ab jetzt ist die Ameise nahe genug um mit 
         /// dem Ziel zu interagieren.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:ZielErreicht(Obst)"
         /// </summary>
         /// <param name="obst">Das erreichte Stück Obst</param>
         public override void ZielErreicht(Obst obst)
@@ -285,12 +280,11 @@ namespace AntMe.Player.JaJoMaTi
         /// Hat die Ameise eine Zuckerhügel als Ziel festgelegt, wird diese Methode aufgerufen, 
         /// sobald die Ameise ihr Ziel erreicht hat. Ab jetzt ist die Ameise nahe genug um mit 
         /// dem Ziel zu interagieren.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:ZielErreicht(Zucker)"
         /// </summary>
         /// <param name="zucker">Der erreichte Zuckerhügel</param>
         public override void ZielErreicht(Zucker zucker)
         {
-            // Dito!
+            // Diese Funktion wird niemals ausgeführt, weil wir keine Zuckersammler haben.
         }
         
 
@@ -302,7 +296,6 @@ namespace AntMe.Player.JaJoMaTi
         /// Markierungen, die von anderen Ameisen platziert werden, können von befreundeten Ameisen 
         /// gewittert werden. Diese Methode wird aufgerufen, wenn eine Ameise zum ersten Mal eine 
         /// befreundete Markierung riecht.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:RiechtFreund(Markierung)"
         /// </summary>
         /// <param name="markierung">Die gerochene Markierung</param>
         public override void RiechtFreund(Markierung markierung)
@@ -352,7 +345,6 @@ namespace AntMe.Player.JaJoMaTi
         /// So wie Ameisen unterschiedliche Nahrungsmittel erspähen können, entdecken Sie auch 
         /// andere Spielelemente. Entdeckt die Ameise eine Ameise aus dem eigenen Volk, so 
         /// wird diese Methode aufgerufen.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:SiehtFreund(Ameise)"
         /// </summary>
         /// <param name="ameise">Erspähte befreundete Ameise</param>
         public override void SiehtFreund(Ameise ameise)
@@ -371,7 +363,6 @@ namespace AntMe.Player.JaJoMaTi
         /// So wie Ameisen unterschiedliche Nahrungsmittel erspähen können, entdecken Sie auch 
         /// andere Spielelemente. Entdeckt die Ameise eine Ameise aus einem befreundeten Volk 
         /// (Völker im selben Team), so wird diese Methode aufgerufen.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:SiehtVerb%C3%BCndeten(Ameise)"
         /// </summary>
         /// <param name="ameise">Erspähte verbündete Ameise</param>
         public override void SiehtVerbündeten(Ameise ameise)
@@ -387,7 +378,6 @@ namespace AntMe.Player.JaJoMaTi
         /// So wie Ameisen unterschiedliche Nahrungsmittel erspähen können, entdecken Sie auch 
         /// andere Spielelemente. Entdeckt die Ameise eine Ameise aus einem feindlichen Volk, 
         /// so wird diese Methode aufgerufen.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:SiehtFeind(Ameise)"
         /// </summary>
         /// <param name="ameise">Erspähte feindliche Ameise</param>
         public override void SiehtFeind(Ameise ameise)
@@ -402,7 +392,6 @@ namespace AntMe.Player.JaJoMaTi
         /// <summary>
         /// So wie Ameisen unterschiedliche Nahrungsmittel erspähen können, entdecken Sie auch 
         /// andere Spielelemente. Entdeckt die Ameise eine Wanze, so wird diese Methode aufgerufen.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:SiehtFeind(Wanze)"
         /// </summary>
         /// <param name="wanze">Erspähte Wanze</param>
         public override void SiehtFeind(Wanze wanze)
@@ -445,24 +434,27 @@ namespace AntMe.Player.JaJoMaTi
         /// Es kann vorkommen, dass feindliche Lebewesen eine Ameise aktiv angreifen. Sollte 
         /// eine feindliche Ameise angreifen, wird diese Methode hier aufgerufen und die 
         /// Ameise kann entscheiden, wie sie darauf reagieren möchte.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:WirdAngegriffen(Ameise)"
         /// </summary>
         /// <param name="ameise">Angreifende Ameise</param>
         public override void WirdAngegriffen(Ameise ameise)
         {
-            
+            if (Kaste == "Attacker") // Wenn unsere Ameise ein Attacker ist, soll sie im Falle eines Angriffs zurück angreiffen
+            {
+                // Wenn eine Ameise angreift: Zurückschlagen.
+                GreifeAn(ameise);
+            }
         }
 
         /// <summary>
         /// Es kann vorkommen, dass feindliche Lebewesen eine Ameise aktiv angreifen. Sollte 
         /// eine Wanze angreifen, wird diese Methode hier aufgerufen und die Ameise kann 
         /// entscheiden, wie sie darauf reagieren möchte.
-        /// Weitere Infos unter "http://wiki.antme.net/de/API1:WirdAngegriffen(Wanze)"
         /// </summary>
         /// <param name="wanze">Angreifende Wanze</param>
         public override void WirdAngegriffen(Wanze wanze)
         {
-            if(Kaste == "Attacker")
+            // Wenn unsere Ameise ein Attacker ist, soll sie im Falle eines Angriffs zurück angreiffen
+            if (Kaste == "Attacker") 
             {
                 // Wenn der Käfer angreift: Zurückschlagen.
                 GreifeAn(wanze);
