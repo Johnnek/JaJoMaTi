@@ -19,9 +19,9 @@ namespace AntMe.Player.JaJoMaTi
     /// (http://wiki.antme.net/de/Lektionen)
     /// </summary>
     [Spieler(
-        Volkname = "JaJoMaTi Final",   // Hier kannst du den Namen des Volkes festlegen
-        Vorname = "50ap",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
-        Nachname = "50at"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Volkname = "JaJoMaTi",   // Hier kannst du den Namen des Volkes festlegen
+        Vorname = "JaJoMaTi",       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
+        Nachname = "JaJoMaTi"       // An dieser Stelle kannst du dich als Schöpfer der Ameise eintragen
     )]
 
     //Unsere Verschiedenen Kasten; Angreifer & Appler
@@ -55,8 +55,8 @@ namespace AntMe.Player.JaJoMaTi
     {
         #region Kasten
 
-        private static bool erzeugeAppler = false; //50/50
-        //private static int zähler = 0;
+        //private static bool erzeugeAppler = false; //50/50
+        //private static int zähler = 0; unnötig
 
         /// <summary>
         /// Jedes mal, wenn eine neue Ameise geboren wird, muss ihre Berufsgruppe
@@ -67,19 +67,19 @@ namespace AntMe.Player.JaJoMaTi
         /// <returns>Name der Kaste zu der die geborene Ameise gehören soll</returns>
         public override string BestimmeKaste(Dictionary<string, int> anzahl)
         {
-            /*
-            if (zähler % 3 == 0)
+            //Appler Attacker Verteilung 50/50
+            if(anzahl["Attacker"] < 51)
             {
-                zähler++;
-                return "Appler";
+                return "Attacker";
             }
             else
             {
-                zähler++;
-                return "Attacker";
+                return "Appler";
             }
-            */
+            
 
+            //Unnötig, da sonst statisch angezeigt wird
+            /*
             //  Wir erzeugen an dieser Stelle Apfel sammelnde Ameisen sowie Angreiffer Ameisen im Verhältnis 50/50
             //  Bei jedem Erstellvorgang wird die flag erzeugeAppler auf 0 und 1 im Wechsel gesetzt
             erzeugeAppler = !erzeugeAppler; 
@@ -90,6 +90,7 @@ namespace AntMe.Player.JaJoMaTi
             {
                 return "Attacker"; // Hier generieren wir eine Angreiffer Ameise wenn erzeugeAppler auf false gesetzt ist.
             }
+            */
         }
 
         #endregion
