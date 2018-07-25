@@ -104,8 +104,7 @@ namespace AntMe.Player.JaJoMaTi
         {
             if (Kaste == "Attacker")
             {
-                // Ameise soll möglichst gut gestreut aber ziellos umherirren um möglichst
-                // schnell Käfer zu finden.
+                // Ameise soll möglichst gut gestreut aber ziellos umherirren um möglichst schnell Käfer zu finden.
                 GeheGeradeaus(40);
                 DreheUmWinkel(Zufall.Zahl(-10, 10));
             }                
@@ -114,19 +113,17 @@ namespace AntMe.Player.JaJoMaTi
                 // Sollte die Ameise außerhalb des Nahrungsmittelradiuses liegen...
                 if (EntfernungZuBau > 400)
                 {
-                    // ... soll sie wieder heim gehen.
+                    // ... soll sie wieder zum Bau gehen.
                     GeheZuBau();
                 }
                 else
                 {
-                    // ... ansonsten soll sie sich ein bischen drehen (zufälliger Winkel
-                    // zwischen -10 und 10 Grad) und wieder ein paar Schritte laufen.
+                    // ... ansonsten soll sie sich ein bischen drehen (zufälliger Winkel zwischen -10 und 10 Grad) und wieder ein paar Schritte laufen.
                     DreheUmWinkel(Zufall.Zahl(-10, 10));
                     GeheGeradeaus(20);
                 }
 
-                // Wenn die restliche verfügbare Strecke der Ameise (minus einem Puffer
-                // von 50 Schritten) kleiner als die Entfernung zum Bau ist...
+                // Wenn die restliche verfügbare Strecke der Ameise (minus einem Puffer von 50 Schritten) kleiner als die Entfernung zum Bau ist...
                 if (Reichweite - ZurückgelegteStrecke - 50 < EntfernungZuBau)
                 {
                     // ... soll sie nach Hause gehen um nicht zu sterben.
@@ -140,7 +137,7 @@ namespace AntMe.Player.JaJoMaTi
         /// </summary>
         public override void WirdMüde()
         {
-            GeheZuBau();
+            GeheZuBau(); // Wenn diese Methode aufgerufen wird, geht die Ameise zurück zum Bau
         }
 
         /// <summary>
@@ -163,17 +160,14 @@ namespace AntMe.Player.JaJoMaTi
         {
             if (Kaste == "Attacker")
             {
-                // Sollte die Ameise am Ende ihrer Reichweite sein (Abzüglich einem Puffer
-                // und der Strecke die sie noch zum Bau zurücklegen muss) soll sie nach
-                // Hause gehen um aufzuladen.
+                // Sollte die Ameise am Ende ihrer Reichweite sein (Abzüglich einem Puffer und der Strecke die sie noch zum Bau zurücklegen muss) soll sie nach Hause gehen um aufzuladen.
                 if (Reichweite - ZurückgelegteStrecke - 100 <
                     EntfernungZuBau)
                 {
                     GeheZuBau();
                 }
 
-                // Sollte eine Ameise durch den Kampf unter die 2/3-Marke ihrer Energie
-                // fallen soll sie nach Hause gehen um aufzuladen.
+                // Sollte eine Ameise durch den Kampf unter die 2/3-Marke ihrer Energie fallen soll sie nach Hause gehen um aufzuladen.
                 if (AktuelleEnergie < MaximaleEnergie * 2 / 3)
                 {
                     GeheZuBau();
@@ -193,16 +187,13 @@ namespace AntMe.Player.JaJoMaTi
                     }
                 }
 
-                // Sollte die Ameise, wärend sie Obst trägt, das Ziel "Bau" verlieren,
-                // wird das Ziel neu gesetzt.
+                // Sollte die Ameise, wärend sie Obst trägt, das Ziel "Bau" verlieren wird das Ziel neu gesetzt.
                 if (GetragenesObst != null)
                 {
                     GeheZuBau();
                 }
 
-                // Sollte die Ameise einem Stück Obst hinterher laufen das garkeine Träger
-                // mehr braucht soll sie stehen bleiben um anschließend durch "wartet"
-                // wieder umher geschickt zu werden.
+                // Sollte die Ameise einem Stück Obst hinterher laufen das garkeine Träger mehr braucht soll sie stehen bleiben um anschließend durch "wartet" wieder umher geschickt zu werden.
                 if (Ziel is Obst && !BrauchtNochTräger((Obst)Ziel))
                 {
                     BleibStehen();
@@ -242,8 +233,7 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="zucker">Der gesichtete Zuckerhügel</param>
         public override void Sieht(Zucker zucker)
         {
-            // Den Fall für Zucker haben wir nicht weiter ausprogrammiert, da wir uns dazu entschieden haben
-            // nur Äpfel zu sammeln bzw. anzugreiffen              
+            // Den Fall für Zucker haben wir nicht weiter ausprogrammiert, da wir uns dazu entschieden haben nur Äpfel zu sammeln bzw. anzugreiffen              
         }
 
         /// <summary>
@@ -256,19 +246,14 @@ namespace AntMe.Player.JaJoMaTi
         {
             if (Kaste == "Attacker")
             {
-                // get rekt
+                // Wenn ein Attacker Ameise beim Obst ankommt, soll es diese ignorieren denn sie sind nur fürs kämpfen zuständig
             }
             if (Kaste == "Appler")
             {
-                // Die Ameise soll nochmal prüfen ob der Apfel überhaupt noch Träger
-                // braucht.
+                // Die Ameise soll nochmal prüfen ob der Apfel überhaupt noch Träger braucht.
                 if (BrauchtNochTräger(obst))
                 {
-                    // Wenn noch Träger gebraucht werden soll die Ameise eine Markierung
-                    // sprühen die als Information die Menge benötigter Ameisen hat. Da die
-                    // benötigte Menge nicht genau ermittelt werden kann wird hier nur
-                    // geschätzt. Es wird erwartet, dass 20 gebraucht werden und dass in
-                    // "AnzahlInSichtweite" etwa die Zahl tragenden Ameisen steckt.
+                    // Wenn noch Träger gebraucht werden soll die Ameise eine Markierung sprühen die als Information die Menge benötigter Ameisen hat. Da die benötigte Menge nicht genau ermittelt werden kann wird hier nur geschätzt. Es wird erwartet, dass 20 gebraucht werden und dass in "AnzahlInSichtweite" etwa die Zahl tragenden Ameisen steckt.
                     SprüheMarkierung(20 - AnzahlAmeisenInSichtweite, 200);
                     Nimm(obst);
                     GeheZuBau();
@@ -302,10 +287,7 @@ namespace AntMe.Player.JaJoMaTi
         {
             if (Kaste == "Attacker")
             {
-                // Die Ameise soll, sofern sie nicht schon ein Ziel wie "Käfer",
-                // "Markierung" oder "Bau" hat auf direktem Weg zum Markierungsmittelpunkt
-                // laufen von wo aus man hoffentlich weitere Markierungen oder direkt den
-                // Käfer sieht.
+                // Die Ameise soll, sofern sie nicht schon ein Ziel wie "Käfer", "Markierung" oder "Bau" hat auf direktem Weg zum laufen von wo aus man hoffentlich weitere Markierungen oder direkt den Käfer sieht.
                 if (Ziel == null)
                 {
                     GeheZuZiel(markierung);
@@ -313,18 +295,13 @@ namespace AntMe.Player.JaJoMaTi
             }
             if (Kaste == "Appler")
             {
-                // Sollte die Ameise nicht schon Obst im Auge haben oder auf dem Weg zum
-                // Bau sein soll sie, wenn die angeforderte Menge Ameisen die Ameisenmenge
-                // der gerade in Sichtweite befindlichen Ameisen übersteigt, zum
-                // Markierungsmittelpunkt gehen um dort hoffentlich den Apfel zu sehen.
+                // Sollte die Ameise nicht schon Obst im Auge haben oder auf dem Weg zum Bau sein soll sie, wenn die angeforderte Menge Ameisen die Ameisenmenge der gerade in Sichtweite befindlichen Ameisen übersteigt, zum Markierungsmittelpunkt gehen um dort hoffentlich den Apfel zu sehen.
                 if (!(Ziel is Obst) &&
                 !(Ziel is Bau) &&
                 AnzahlAmeisenInSichtweite < markierung.Information)
                 {
                     GeheZuZiel(markierung);
-                    // Sollte die Entfernung mehr als 50 schritte zum Mittelpunkt betragen,
-                    // soll eine Folgemarkierung gesprüht werden um denn Effektradius zu 
-                    // erhöhen.
+                    // Sollte die Entfernung mehr als 50 schritte zum Mittelpunkt betragen, soll eine Folgemarkierung gesprüht werden um denn Effektradius zu erhöhen.
                     if (Koordinate.BestimmeEntfernung(this, markierung) > 50)
                     {
                         SprüheMarkierung(
@@ -334,8 +311,7 @@ namespace AntMe.Player.JaJoMaTi
                 }
                 else
                 {
-                    // In allen anderen Fällen soll sie kurz stehen bleiben um zu
-                    // verhindern, dass die Ameise dem Apfel ewig hinterher läuft.
+                    // In allen anderen Fällen soll sie kurz stehen bleiben um zu verhindern, dass die Ameise dem Apfel ewig hinterher läuft.
                     BleibStehen();
                 }
             }
@@ -349,15 +325,8 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Erspähte befreundete Ameise</param>
         public override void SiehtFreund(Ameise ameise)
         {
-            if (Kaste == "Attacker")
-            {
-                // get rekt
-            }
-            if (Kaste == "Appler")
-            {
-                // joooooo
-            }
-         }
+            // Diese Methode wird ignoriert
+        }
 
         /// <summary>
         /// So wie Ameisen unterschiedliche Nahrungsmittel erspähen können, entdecken Sie auch 
@@ -367,9 +336,8 @@ namespace AntMe.Player.JaJoMaTi
         /// <param name="ameise">Erspähte verbündete Ameise</param>
         public override void SiehtVerbündeten(Ameise ameise)
         {
-
+            // Diese Methode wird ignoriert
         }
-
         #endregion
 
         #region Kampf
@@ -388,7 +356,6 @@ namespace AntMe.Player.JaJoMaTi
                 GreifeAn(ameise);
             }            
         }
-
         /// <summary>
         /// So wie Ameisen unterschiedliche Nahrungsmittel erspähen können, entdecken Sie auch 
         /// andere Spielelemente. Entdeckt die Ameise eine Wanze, so wird diese Methode aufgerufen.
@@ -398,24 +365,18 @@ namespace AntMe.Player.JaJoMaTi
         {
             if (Kaste == "Attacker")
             {
-                // Wenn ein Käfer gesehen wird muss eine angemessen große Markierung
-                // gesprüht werden. Ist diese Markierung zu klein kommt zu wenig Hilfe,
-                // ist sie zu groß haben die weit entfernten Ameisen eine zu große Strecke
-                // und kommen erst nach dem Kampf an.
+                // Wenn ein Käfer gesehen wird muss eine angemessen große Markierung gesprüht werden. Ist diese Markierung zu klein kommt zu wenig Hilfe, ist sie zu groß haben die weit entfernten Ameisen eine zu große Strecke und kommen erst nach dem Kampf an.
                 SprüheMarkierung(0, 150);
                 GreifeAn(wanze);
             }
             if (Kaste == "Appler")
             {
-                // Bei Käfersicht wird ermittelt ob die Ameise evtl. kollidiert, wenn sie
-                // geradeaus weitergeht.
+                // Bei Käfersicht wird ermittelt ob die Ameise evtl. kollidiert, wenn sie geradeaus weitergeht.
                 int relativeRichtung =
                 Koordinate.BestimmeRichtung(this, wanze) - Richtung;
                 if (relativeRichtung > -15 && relativeRichtung < 15)
                 {
-                    // Wenn ja, soll sie erstmal die Nahrung fallen lassen um schneller zu
-                    // laufen und dann, je nachdem auf welcher Seite der Käfer ist, in einem
-                    // 20 Grad-Winkel in die andere Richtung weggehen.
+                    // Wenn ja, soll sie erstmal die Nahrung fallen lassen um schneller zu laufen und dann, je nachdem auf welcher Seite der Käfer ist, in einem 20 Grad-Winkel in die andere Richtung weggehen.
                     LasseNahrungFallen();
                     if (relativeRichtung < 0)
                     {
@@ -429,7 +390,6 @@ namespace AntMe.Player.JaJoMaTi
                 }
             }
         }
-
         /// <summary>
         /// Es kann vorkommen, dass feindliche Lebewesen eine Ameise aktiv angreifen. Sollte 
         /// eine feindliche Ameise angreifen, wird diese Methode hier aufgerufen und die 
@@ -444,7 +404,6 @@ namespace AntMe.Player.JaJoMaTi
                 GreifeAn(ameise);
             }
         }
-
         /// <summary>
         /// Es kann vorkommen, dass feindliche Lebewesen eine Ameise aktiv angreifen. Sollte 
         /// eine Wanze angreifen, wird diese Methode hier aufgerufen und die Ameise kann 
@@ -460,7 +419,6 @@ namespace AntMe.Player.JaJoMaTi
                 GreifeAn(wanze);
             }
         }
-
         #endregion
     }
 }
